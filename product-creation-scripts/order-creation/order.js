@@ -4,7 +4,7 @@ const axios = require('axios');
 const uuid = require('uuid')
 // PostgreSQL config
 const client = new Client({
-  host: 'localhost',
+  host: 'http://34.131.131.49',
   port: 5432,
   user: 'admin',
   password: 'admin123',
@@ -46,7 +46,7 @@ async function fetchData() {
 
 // Random action generator
 async function simulateAction(iteration, userIds, productIds) {
-  const action = getRandomElement(['view-product', 'add-cart', 'place-order']);
+  const action = getRandomElement([ 'place-order']);
   const userId = getRandomElement(userIds);
   const productId = getRandomElement(productIds);
   const now = Date.now();
@@ -80,7 +80,7 @@ async function simulateAction(iteration, userIds, productIds) {
         const qty = getRandomInt(1, 5);
         const paymentMethod = getRandomElement(paymentMethods);
         const city = getRandomElement(cities);
-        const source = getRandomElement(sources);git
+        const source = getRandomElement(sources);
 
         await axios.post('http://34.131.131.49:8001/api/v1/order-management/place-order', {
           orderId : uuid.v4(),
