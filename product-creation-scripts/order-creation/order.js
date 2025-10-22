@@ -80,7 +80,7 @@ async function simulateAction(iteration, userIds, productIds) {
         const qty = getRandomInt(1, 5);
         const paymentMethod = getRandomElement(paymentMethods);
         const city = getRandomElement(cities);
-        const source = getRandomElement(sources);
+        const source = getRandomElement(sources);git
 
         await axios.post('http://34.131.131.49:8001/api/v1/order-management/place-order', {
           orderId : uuid.v4(),
@@ -100,24 +100,56 @@ async function simulateAction(iteration, userIds, productIds) {
   }
 }
 
-async function main(iterations = 1000) {
+async function main(totalIterations = 1_000_000) {
+  const batchSize = 100;      // 100 iterations per batch
+  const batchInterval = 1000; // 1 second per batch
+  const breakEvery = 1000;    // after how many batches to pause (100 * 1000 = 100,000 iterations)
+  const breakDuration = 10_000; // 10 seconds break
+
   try {
     await client.connect();
     console.log(`[${new Date().toISOString()}] Connected to PostgreSQL`);
 
     const { userIds, productIds } = await fetchData();
 
-    for (let i = 1; i <= iterations; i++) {
-      await simulateAction(i, userIds, productIds);
-      await new Promise(r => setTimeout(r, 10)); // small delay
+    let iteration = 0;
+    let batchCount = 0;
+
+    while (iteration < totalIterations) {
+      const batchStart = Date.now();
+
+      // Run 100 iterations concurrently (fast)
+      const tasks = [];
+      for (let i = 0; i < batchSize && iteration < totalIterations; i++) {
+        iteration++;
+        tasks.push(simulateAction(iteration, userIds, productIds));
+      }
+
+      await Promise.all(tasks);
+
+      batchCount++;
+      const elapsed = Date.now() - batchStart;
+      if (elapsed < batchInterval) {
+        // maintain roughly 100 iterations/sec
+        await new Promise(r => setTimeout(r, batchInterval - elapsed));
+      }
+
+      // every 1000 batches (≈100,000 iterations), take a 10s pause
+      if (batchCount % breakEvery === 0) {
+        console.log(`[${new Date().toISOString()}] Completed ${iteration} iterations. Taking 10s break...`);
+        await new Promise(r => setTimeout(r, breakDuration));
+      }
     }
 
+    console.log(`[${new Date().toISOString()}] ✅ Completed all ${iteration} iterations`);
+
   } catch (err) {
-    console.error(`[${new Date().toISOString()}] Error connecting to DB or fetching data: ${err.message}`);
+    console.error(`[${new Date().toISOString()}] ❌ Error: ${err.message}`);
   } finally {
     await client.end();
-    console.log(`[${new Date().toISOString()}] Simulation completed, connection closed`);
+    console.log(`[${new Date().toISOString()}] Connection closed`);
   }
 }
+
 
 main();
