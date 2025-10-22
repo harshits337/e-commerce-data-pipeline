@@ -57,7 +57,7 @@ async function simulateAction(iteration, userIds, productIds) {
   try {
     switch (action) {
       case 'view-product':
-        await axios.post('http://localhost:8001/api/v1/order-management/view-product', {
+        await axios.post('http://34.131.131.49:8001/api/v1/order-management/view-product', {
           userId,
           productId,
           timestamp
@@ -67,7 +67,7 @@ async function simulateAction(iteration, userIds, productIds) {
 
       case 'add-cart':
         const quantity = getRandomInt(1, 5);
-        await axios.post('http://localhost:8001/api/v1/order-management/add-cart', {
+        await axios.post('http://34.131.131.49:8001/api/v1/order-management/add-cart', {
           userId,
           productId,
           quantity,
@@ -82,7 +82,7 @@ async function simulateAction(iteration, userIds, productIds) {
         const city = getRandomElement(cities);
         const source = getRandomElement(sources);
 
-        await axios.post('http://localhost:8001/api/v1/order-management/place-order', {
+        await axios.post('http://34.131.131.49:8001/api/v1/order-management/place-order', {
           orderId : uuid.v4(),
           userId,
           productId,

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { DashboardResponse, TimeRange } from '@/types/dashboard';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://34.131.131.49:8001';
 
 const api = axios.create({
   baseURL: API_BASE_URL,

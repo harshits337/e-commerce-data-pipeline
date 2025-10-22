@@ -18,7 +18,7 @@ A beautiful, real-time analytics dashboard built with **Next.js 15 App Router**,
 ### Prerequisites
 
 - **Node.js 18+** 
-- Your API server running on `http://localhost:8001`
+- Your API server running on `http://34.131.131.49:8001`
 
 ### Installation
 
@@ -35,7 +35,7 @@ A beautiful, real-time analytics dashboard built with **Next.js 15 App Router**,
    
    Edit `.env.local` and update the API URL if needed:
    ```env
-   NEXT_PUBLIC_API_URL=http://localhost:8001
+   NEXT_PUBLIC_API_URL=http://34.131.131.49:8001
    NODE_ENV=development
    ```
 
@@ -159,7 +159,7 @@ ui/
 ### Common Issues
 
 1. **API Connection Error**
-   - Ensure your backend is running on `http://localhost:8001`
+   - Ensure your backend is running on `http://34.131.131.49:8001`
    - Check CORS settings in your API
    - Verify the API endpoint is accessible
 
