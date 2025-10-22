@@ -35,12 +35,12 @@ const startServer = async () => {
     try {
         // Initialize Kafka connection
         try {
-            await kafkaConnection.connect();
-            console.log('✅ Kafka Producer connected');
+            // await kafkaConnection.connect();
+            // console.log('✅ Kafka Producer connected');
             
-            // Start consumer to see messages
-            consumer.start();
-            console.log('👂 Kafka Consumer listening for messages');
+            // // Start consumer to see messages
+            // consumer.start();
+            // console.log('👂 Kafka Consumer listening for messages');
             await client.connect();
 
             const usersRes = await client.query('SELECT * FROM users');
