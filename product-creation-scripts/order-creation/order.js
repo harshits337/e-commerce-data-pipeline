@@ -101,9 +101,9 @@ async function simulateAction(iteration, userIds, productIds) {
 }
 
 async function main(totalIterations = 10000) {
-  const batchSize = 100;      // 100 iterations per batch
+  const batchSize = 10;      // 100 iterations per batch
   const batchInterval = 1000; // 1 second per batch
-  const breakEvery = 1000;    // after how many batches to pause (100 * 1000 = 100,000 iterations)
+  const breakEvery = 100;    // after how many batches to pause (100 * 1000 = 100,000 iterations)
   const breakDuration = 10_000; // 10 seconds break
 
   try {
