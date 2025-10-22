@@ -6,7 +6,8 @@ class ClickhouseController {
     getDashboardData = async (req: Request, res: Response) => {
         try {
             let { range } = req.query;
-            
+
+            console.log('range', range);
             if (!range) {
                 return res.status(400).json({ 
                     message: 'Range parameter is required',
