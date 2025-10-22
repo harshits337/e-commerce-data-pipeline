@@ -46,7 +46,7 @@ async function fetchData() {
 
 // Random action generator
 async function simulateAction(iteration, userIds, productIds) {
-  const action = getRandomElement([ 'place-order']);
+  const action = getRandomElement([ 'place-order', 'add-cart', 'view-product']);
   const userId = getRandomElement(userIds);
   const productId = getRandomElement(productIds);
   const now = Date.now();
