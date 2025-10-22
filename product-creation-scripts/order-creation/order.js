@@ -4,7 +4,7 @@ const axios = require('axios');
 const uuid = require('uuid')
 // PostgreSQL config
 const client = new Client({
-  host: 'http://34.131.131.49',
+  host: 'localhost',
   port: 5432,
   user: 'admin',
   password: 'admin123',
